@@ -8,11 +8,5 @@
         "distDir": "dist/frontend/browser"
       }
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
   ]
 } 
