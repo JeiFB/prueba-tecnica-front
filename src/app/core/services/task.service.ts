@@ -29,7 +29,7 @@ interface TaskResponseDto {
 @Injectable({ providedIn: 'root' })
 export class TaskService {
   
-  private baseUrl = `${environment.apiUrl}/`;
+  private baseUrl = `${environment.apiUrl}/task`;
 
   constructor(private http: HttpClient) {}
 
