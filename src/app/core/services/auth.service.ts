@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private authUrl = `${environment.apiUrl}/auth`;
-
+  private authRegisterUrl = `${environment.apiUrl}/user`;
   constructor(private http: HttpClient) {}
 
   login(credentials: { email: string; password: string }) {
@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   register(data: any) {
-    return this.http.post(`${this.authUrl}/register`, data);
+    return this.http.post(`${this.authRegisterUrl}/`, data);
   }
 
   logout(): Observable<any> {
