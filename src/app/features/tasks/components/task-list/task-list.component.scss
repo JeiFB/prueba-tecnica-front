@@ -1,0 +1,194 @@
+.tasks-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  .header-left {
+    h1 {
+      font-size: 2em;
+      margin: 0;
+      color: #333;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
+
+.search-card {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #fafafa;
+
+  .search-field {
+    width: 100%;
+
+    ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    mat-icon {
+      color: #666;
+    }
+  }
+}
+
+.filters-card {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: #fafafa;
+
+  .filters-form {
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .filters-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+
+      button {
+        min-width: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+    }
+  }
+}
+
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+
+  .task-card {
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    mat-card-header {
+      margin-bottom: 16px;
+
+      mat-card-title {
+        font-size: 1.2em;
+        margin-bottom: 8px;
+      }
+
+      .due-date {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: #666;
+
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    .task-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      > div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        mat-icon {
+          font-size: 20px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    mat-card-actions {
+      padding: 8px;
+      margin: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+    }
+  }
+}
+
+// Clases de estado para las tarjetas
+.task-card {
+  &.status-todo {
+    border-left: 4px solid #ff9800;
+  }
+
+  &.status-in-progress {
+    border-left: 4px solid #2196f3;
+  }
+
+  &.status-done {
+    border-left: 4px solid #4caf50;
+  }
+
+  &.status-overdue {
+    border-left: 4px solid #f44336;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 600px) {
+  .tasks-container {
+    padding: 16px;
+  }
+
+  .tasks-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+
+    .header-actions {
+      width: 100%;
+      flex-direction: column;
+    }
+  }
+
+  .filters-card {
+    .filters-form {
+      .filters-actions {
+        flex-direction: column;
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .tasks-grid {
+    grid-template-columns: 1fr;
+  }
+}
+  

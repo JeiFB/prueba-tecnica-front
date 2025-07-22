@@ -1,0 +1,133 @@
+<div class="tasks-container">
+  <!-- Header con acciones principales -->
+  <div class="tasks-header">
+    <div class="header-left">
+      <h1>Mis Tareas</h1>
+    </div>
+    <div class="header-actions">
+      <button mat-flat-button color="primary" routerLink="new">
+        <mat-icon>add</mat-icon>
+        Nueva tarea
+      </button>
+      <button mat-stroked-button color="primary" routerLink="/dashboard">
+        <mat-icon>dashboard</mat-icon>
+        Ver Dashboard
+      </button>
+      <app-user-menu></app-user-menu>
+    </div>
+  </div>
+
+  <!-- Campo de búsqueda -->
+  <mat-card class="search-card">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Buscar tareas</mat-label>
+      <input matInput [value]="searchTerm" (input)="onSearch($event)" placeholder="Escribe para buscar...">
+      <mat-icon matPrefix>search</mat-icon>
+      <button mat-icon-button matSuffix *ngIf="searchTerm" (click)="clearSearch()" type="button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </mat-card>
+
+  <!-- Filtros -->
+  <mat-card class="filters-card">
+    <form [formGroup]="filterForm" (ngSubmit)="filterTasks()" class="filters-form">
+      <div class="filters-grid">
+        <mat-form-field appearance="outline">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="status">
+            <mat-option value="">Todos</mat-option>
+            <mat-option *ngFor="let s of statuses" [value]="s.value">
+              <mat-icon [style.color]="getStatusColor(s.value)">
+                {{getStatusIcon(s.value)}}
+              </mat-icon>
+              {{ s.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Prioridad</mat-label>
+          <mat-select formControlName="priority">
+            <mat-option value="">Todas</mat-option>
+            <mat-option *ngFor="let p of priorities" [value]="p.value">
+              <mat-icon [style.color]="getPriorityColor(p.value)">
+                {{getPriorityIcon(p.value)}}
+              </mat-icon>
+              {{ p.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Desde</mat-label>
+          <input matInput [matDatepicker]="fromPicker" formControlName="fromDate">
+          <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Hasta</mat-label>
+          <input matInput [matDatepicker]="toPicker" formControlName="toDate">
+          <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="filters-actions">
+        <button mat-flat-button color="primary" type="submit">
+          <mat-icon>filter_list</mat-icon>
+          Aplicar filtros
+        </button>
+        <button mat-stroked-button type="button" (click)="loadTasks()">
+          <mat-icon>refresh</mat-icon>
+          Limpiar
+        </button>
+      </div>
+    </form>
+  </mat-card>
+
+  <!-- Lista de tareas -->
+  <div class="tasks-grid">
+    <mat-card *ngFor="let t of tasks" class="task-card" [ngClass]="getStatusClass(t.status)">
+      <mat-card-header>
+        <mat-card-title>{{ t.title }}</mat-card-title>
+        <mat-card-subtitle>
+          <span class="due-date">
+            <mat-icon>event</mat-icon>
+            {{ t.dueDate | date }}
+          </span>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="task-info">
+          <div class="task-status">
+            <mat-icon [style.color]="getStatusColor(t.status)">
+              {{getStatusIcon(t.status)}}
+            </mat-icon>
+            {{ getStatusLabel(t.status) }}
+          </div>
+          <div class="task-priority" [style.color]="getPriorityColor(t.priority)">
+            <mat-icon>{{ getPriorityIcon(t.priority) }}</mat-icon>
+            {{ getPriorityLabel(t.priority) }}
+          </div>
+          <div class="task-assignee">
+            <mat-icon>person</mat-icon>
+            {{ t.userName }}
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-icon-button [routerLink]="['/tasks/edit', t.id]" color="primary">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delete(t.id!)" color="warn">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+  

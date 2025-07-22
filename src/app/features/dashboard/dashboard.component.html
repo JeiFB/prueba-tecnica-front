@@ -1,0 +1,116 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Panel de Control</h1>
+    <button mat-flat-button color="primary" (click)="goToTasks()">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a tareas
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="dashboard-loading">
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    <span>Cargando estadísticas...</span>
+  </div>
+
+  <div *ngIf="error" class="dashboard-error">
+    <mat-icon>error_outline</mat-icon>
+    <span>{{ error }}</span>
+  </div>
+
+  <div *ngIf="stats" class="dashboard-content">
+    <!-- Resumen principal -->
+    <div class="dashboard-summary">
+      <mat-card class="summary-card total-tasks">
+        <div class="card-content">
+          <div class="card-info">
+            <h2>Total de tareas</h2>
+            <div class="big-number">{{ stats.totalTasks }}</div>
+          </div>
+          <mat-icon class="card-icon">assignment</mat-icon>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="stats.completionPercentage" color="primary"></mat-progress-bar>
+        <div class="completion-text">{{ stats.completionPercentage }}% completado</div>
+      </mat-card>
+    </div>
+
+    <!-- Estado de tareas -->
+    <div class="dashboard-section">
+      <h2 class="section-title">Estado de tareas</h2>
+      <div class="status-cards">
+        <mat-card class="status-card completed">
+          <mat-icon>check_circle</mat-icon>
+          <div class="status-info">
+            <span class="status-label">Completadas</span>
+            <span class="status-value">{{ stats.completed }}</span>
+          </div>
+        </mat-card>
+
+        <mat-card class="status-card in-progress">
+          <mat-icon>autorenew</mat-icon>
+          <div class="status-info">
+            <span class="status-label">En progreso</span>
+            <span class="status-value">{{ stats.inProgress }}</span>
+          </div>
+        </mat-card>
+
+        <mat-card class="status-card todo">
+          <mat-icon>pending_actions</mat-icon>
+          <div class="status-info">
+            <span class="status-label">Por hacer</span>
+            <span class="status-value">{{ stats.toDo }}</span>
+          </div>
+        </mat-card>
+
+        <mat-card class="status-card overdue">
+          <mat-icon>error_outline</mat-icon>
+          <div class="status-info">
+            <span class="status-label">Vencidas</span>
+            <span class="status-value">{{ stats.overdue }}</span>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Distribución por prioridad -->
+    <div class="dashboard-section">
+      <h2 class="section-title">Distribución por prioridad</h2>
+      <div class="priority-cards">
+        <mat-card class="priority-card high">
+          <div class="priority-header">
+            <mat-icon>priority_high</mat-icon>
+            <span>Alta</span>
+          </div>
+          <div class="priority-number">{{ stats.highPriority }}</div>
+          <mat-progress-bar mode="determinate" 
+            [value]="(stats.highPriority / stats.totalTasks) * 100" 
+            color="warn">
+          </mat-progress-bar>
+        </mat-card>
+
+        <mat-card class="priority-card medium">
+          <div class="priority-header">
+            <mat-icon>drag_handle</mat-icon>
+            <span>Media</span>
+          </div>
+          <div class="priority-number">{{ stats.mediumPriority }}</div>
+          <mat-progress-bar mode="determinate" 
+            [value]="(stats.mediumPriority / stats.totalTasks) * 100" 
+            color="accent">
+          </mat-progress-bar>
+        </mat-card>
+
+        <mat-card class="priority-card low">
+          <div class="priority-header">
+            <mat-icon>low_priority</mat-icon>
+            <span>Baja</span>
+          </div>
+          <div class="priority-number">{{ stats.lowPriority }}</div>
+          <mat-progress-bar mode="determinate" 
+            [value]="(stats.lowPriority / stats.totalTasks) * 100" 
+            color="primary">
+          </mat-progress-bar>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div> 

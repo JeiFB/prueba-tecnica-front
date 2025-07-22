@@ -1,0 +1,276 @@
+.dashboard-back-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.dashboard-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+
+  h1 {
+    font-size: 2em;
+    margin: 0;
+    color: #333;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.dashboard-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 48px 0;
+
+  span {
+    color: #666;
+    font-size: 1.1em;
+  }
+}
+
+.dashboard-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #d32f2f;
+  font-size: 1.1em;
+  margin: 48px 0;
+
+  mat-icon {
+    font-size: 24px;
+    height: 24px;
+    width: 24px;
+  }
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+// Resumen principal
+.dashboard-summary {
+  .summary-card {
+    padding: 24px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #673ab7 0%, #9c27b0 100%);
+    color: white;
+
+    .card-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .card-info {
+      h2 {
+        margin: 0;
+        font-size: 1.2em;
+        font-weight: normal;
+        opacity: 0.9;
+      }
+
+      .big-number {
+        font-size: 3em;
+        font-weight: bold;
+        line-height: 1.2;
+      }
+    }
+
+    .card-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      opacity: 0.8;
+    }
+
+    .completion-text {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+  }
+}
+
+// Sección de estado
+.dashboard-section {
+  .section-title {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+}
+
+.status-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+
+  .status-card {
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    mat-icon {
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+    }
+
+    .status-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .status-label {
+      font-size: 1em;
+      color: #666;
+    }
+
+    .status-value {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #333;
+    }
+
+    &.completed {
+      background: #e8f5e9;
+      mat-icon { color: #2e7d32; }
+    }
+
+    &.in-progress {
+      background: #e3f2fd;
+      mat-icon { color: #1976d2; }
+    }
+
+    &.todo {
+      background: #fff3e0;
+      mat-icon { color: #f57c00; }
+    }
+
+    &.overdue {
+      background: #ffebee;
+      mat-icon { color: #c62828; }
+    }
+  }
+}
+
+// Sección de prioridad
+.priority-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+
+  .priority-card {
+    padding: 20px;
+    border-radius: 12px;
+
+    .priority-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+
+      span {
+        font-size: 1.1em;
+        font-weight: 500;
+      }
+    }
+
+    .priority-number {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    &.high {
+      background: #fff5f5;
+      .priority-header {
+        color: #d32f2f;
+      }
+    }
+
+    &.medium {
+      background: #fff8e1;
+      .priority-header {
+        color: #f57c00;
+      }
+    }
+
+    &.low {
+      background: #f3e5f5;
+      .priority-header {
+        color: #7b1fa2;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 600px) {
+  .dashboard-container {
+    padding: 16px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+
+    h1 {
+      font-size: 1.5em;
+    }
+  }
+
+  .status-cards, .priority-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    .card-info {
+      .big-number {
+        font-size: 2.5em;
+      }
+    }
+
+    .card-icon {
+      font-size: 36px;
+      width: 36px;
+      height: 36px;
+    }
+  }
+} 

@@ -1,0 +1,72 @@
+<div class="task-form-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="task-form">
+    <mat-card class="mat-elevation-z4">
+      <mat-card-header>
+        <mat-card-title>{{ isEdit ? 'Editar Tarea' : 'Nueva Tarea' }}</mat-card-title>
+      </mat-card-header>
+  
+      <mat-card-content>
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Título</mat-label>
+            <input matInput formControlName="title" placeholder="Ingresa el título de la tarea"/>
+            <mat-error *ngIf="form.get('title')?.invalid">Requerido</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="description" rows="3" placeholder="Describe la tarea"></textarea>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Fecha de vencimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dueDate" placeholder="DD/MM/YYYY"/>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form.get('dueDate')?.invalid">Requerido</mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-row form-row-split">
+          <mat-form-field appearance="outline">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="status">
+              <mat-option *ngFor="let s of statuses" [value]="s.value">{{ s.label }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('status')?.invalid">Requerido</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Prioridad</mat-label>
+            <mat-select formControlName="priority">
+              <mat-option *ngFor="let p of priorities" [value]="p.value">{{ p.label }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('priority')?.invalid">Requerido</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Asignar a</mat-label>
+            <mat-select formControlName="userId">
+              <mat-option *ngFor="let user of users" [value]="user.id">{{ user.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('userId')?.invalid">Requerido</mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+  
+      <mat-card-actions align="end">
+        <button mat-button type="button" (click)="cancel()">Cancelar</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+          {{ isEdit ? 'Actualizar' : 'Crear' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
+  
