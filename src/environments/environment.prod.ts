@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://tu-backend-en-produccion.com' // <-- ¡IMPORTANTE! Cambia esto por tu URL real
+  apiUrl: 'https://prueba-tecnica-backend-exi4.onrender.com'
 }; 
