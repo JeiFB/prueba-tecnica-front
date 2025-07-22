@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Task, TaskPriority, TaskStatus, PageResponse, TaskSearchResult } from "../../shared/models/tasks";
 import { map, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 // DTOs para mapeo
 interface TaskRequestDto {
@@ -27,7 +28,8 @@ interface TaskResponseDto {
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private baseUrl = 'http://localhost:8080/task';
+  
+  private baseUrl = `${environment.apiUrl}/`;
 
   constructor(private http: HttpClient) {}
 
