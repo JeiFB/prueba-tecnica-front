@@ -1,27 +1,83 @@
-# Frontend
+# Prueba Técnica - Aplicación de Tareas (Frontend)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Este es el repositorio para el frontend de una aplicación web completa de gestión de tareas. La aplicación permite a los usuarios registrarse, iniciar sesión y realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre sus tareas.
 
-## Development server
+## Demos en Vivo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+*   **Frontend (Vercel):** [https://prueba-tecnica-front-three.vercel.app/](https://prueba-tecnica-front-three.vercel.app/)
+*   **Backend (Render):** [https://prueba-tecnica-backend-exi4.onrender.com/](https://prueba-tecnica-backend-exi4.onrender.com/)
 
-## Code scaffolding
+## Características
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+*   **Autenticación de Usuarios:** Sistema completo de registro e inicio de sesión.
+*   **Gestión de Tareas (CRUD):**
+    *   Crear nuevas tareas.
+    *   Visualizar la lista de tareas pendientes.
+    *   Marcar tareas como completadas.
+    *   Eliminar tareas.
+*   **Diseño Responsivo:** Interfaz adaptable a diferentes tamaños de pantalla.
+*   **Rutas Protegidas:** Solo los usuarios autenticados pueden acceder al dashboard y a la gestión de tareas.
 
-## Build
+## Stack de Tecnologías
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+*   **Framework:** Angular v17
+*   **Componentes UI:** Angular Material
+*   **Lenguaje:** TypeScript
+*   **Programación Reactiva:** RxJS
+*   **Despliegue:** Vercel
 
-## Running unit tests
+## Prerrequisitos
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Asegúrate de tener instalado lo siguiente en tu sistema:
 
-## Running end-to-end tests
+*   [Node.js](https://nodejs.org/) (versión 18.13.0 o superior)
+*   [Angular CLI](https://angular.io/cli) (versión 17.3 o superior)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Instalación y Configuración Local
 
-## Further help
+Sigue estos pasos para ejecutar el proyecto en tu máquina local:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone https://github.com/JeiFB/prueba-tecnica-front.git
+    ```
+
+2.  **Navegar al directorio del proyecto:**
+    ```bash
+    cd prueba-tecnica-front
+    ```
+
+3.  **Instalar las dependencias:**
+    ```bash
+    npm install
+    ```
+
+4.  **Configurar el entorno:**
+    *   El archivo `src/environments/environment.ts` apunta al backend en `http://localhost:8080`. Asegúrate de que el servidor backend esté corriendo localmente en ese puerto.
+    *   El archivo `src/environments/environment.prod.ts` está configurado para apuntar al backend desplegado en Render.
+
+## Ejecutar en Modo Desarrollo
+
+Para iniciar el servidor de desarrollo de Angular, ejecuta:
+
+```bash
+ng serve
+```
+
+Abre tu navegador y navega a `http://localhost:4200/`. La aplicación se recargará automáticamente si realizas cambios en los archivos fuente.
+
+## Compilar para Producción
+
+Para compilar el proyecto para un entorno de producción, ejecuta:
+
+```bash
+ng build
+```
+
+Los artefactos de la compilación se almacenarán en el directorio `dist/frontend`.
+
+## Despliegue
+
+Este proyecto está configurado para un despliegue continuo en [Vercel](https://vercel.com/). Cualquier `push` a la rama `main` del repositorio en GitHub disparará automáticamente un nuevo despliegue con la última versión del código.
+
+El archivo `vercel.json` en la raíz del proyecto contiene la configuración necesaria para que Vercel compile y despliegue la aplicación correctamente.
