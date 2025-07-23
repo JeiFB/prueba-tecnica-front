@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';       // ← importa este
 
 import { AuthService } from '../../../../core/services/auth.service';
+import { AUTH_ROUTES, AUTH_TEXTS } from '../../../../shared/constants/auth.constants';
 
 @Component({
   selector: 'app-register',
@@ -29,6 +30,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   hide = true;
+  authTexts = AUTH_TEXTS;
 
   constructor(
     private fb: FormBuilder,
@@ -57,8 +59,8 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) return;
     const { name, email, password } = this.registerForm.value;
     this.auth.register({ name, email, password }).subscribe({
-      next: () => this.router.navigate(['/login']),
-      error: err => console.error('Registro fallido', err)
+      next: () => this.router.navigate([AUTH_ROUTES.login]),
+      error: err => console.error(this.authTexts.register.errors.registerFailed, err)
     });
   }
 }

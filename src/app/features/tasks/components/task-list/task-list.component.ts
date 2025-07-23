@@ -2,7 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TaskService } from '../../../../core/services/task.service';
 import { Task, TaskStatus, TaskPriority } from '../../../../shared/models/tasks';
-import { TASK_STATUSES, TASK_PRIORITIES } from '../../../../shared/constants/task.constants';
+import { 
+  TASK_STATUS_MAP, 
+  TASK_PRIORITY_MAP, 
+  TASK_STATUS_INFO, 
+  TASK_PRIORITY_INFO,
+  TASK_MESSAGES,
+  TASK_TEXTS
+} from '../../../../shared/constants/task.constants';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
@@ -14,8 +21,15 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
   filterForm: FormGroup;
-  statuses = TASK_STATUSES;
-  priorities = TASK_PRIORITIES;
+  
+  // Usamos los mapas y la información de las constantes
+  statuses = Object.keys(TaskStatus);
+  priorities = Object.keys(TaskPriority);
+  statusMap = TASK_STATUS_MAP;
+  priorityMap = TASK_PRIORITY_MAP;
+  statusInfo = TASK_STATUS_INFO;
+  priorityInfo = TASK_PRIORITY_INFO;
+  taskTexts = TASK_TEXTS;
 
   // Búsqueda
   searchTerm = '';
@@ -94,67 +108,47 @@ export class TaskListComponent implements OnInit {
     return `${d.getFullYear()}-${month}-${day}`;
   }
 
-  getStatusLabel(value: string): string {
-    return this.statuses.find(s => s.value === value)?.label || value;
+  // Las funciones de obtención de información ahora son más simples
+  getStatusLabel(value: TaskStatus): string {
+    return this.statusMap[value] || value;
   }
 
-  getPriorityLabel(value: string): string {
-    return this.priorities.find(p => p.value === value)?.label || value;
+  getPriorityLabel(value: TaskPriority): string {
+    return this.priorityMap[value] || value;
   }
 
-  getStatusIcon(value: string): string {
-    const status = value as TaskStatus;
-    switch (status) {
-      case TaskStatus.TO_DO: return 'pending_actions';
-      case TaskStatus.IN_PROGRESS: return 'autorenew';
-      case TaskStatus.DONE: return 'check_circle';
-      default: return 'help_outline';
-    }
+  getStatusIcon(value: TaskStatus): string {
+    return this.statusInfo[value]?.icon || 'help_outline';
   }
 
-  getPriorityIcon(value: string): string {
-    const priority = value as TaskPriority;
-    switch (priority) {
-      case TaskPriority.HIGH: return 'priority_high';
-      case TaskPriority.MEDIUM: return 'drag_handle';
-      case TaskPriority.LOW: return 'low_priority';
-      default: return 'help_outline';
-    }
+  getPriorityIcon(value: TaskPriority): string {
+    return this.priorityInfo[value]?.icon || 'help_outline';
   }
 
-  getStatusColor(value: string): string {
-    const status = value as TaskStatus;
-    switch (status) {
-      case TaskStatus.TO_DO: return '#ff9800';
-      case TaskStatus.IN_PROGRESS: return '#2196f3';
-      case TaskStatus.DONE: return '#4caf50';
-      default: return '#757575';
-    }
+  getStatusColor(value: TaskStatus): string {
+    return this.statusInfo[value]?.color || '#757575';
   }
 
-  getPriorityColor(value: string): string {
-    const priority = value as TaskPriority;
-    switch (priority) {
-      case TaskPriority.HIGH: return '#f44336';
-      case TaskPriority.MEDIUM: return '#ff9800';
-      case TaskPriority.LOW: return '#7b1fa2';
-      default: return '#757575';
-    }
+  getPriorityColor(value: TaskPriority): string {
+    return this.priorityInfo[value]?.color || '#757575';
   }
 
-  getStatusClass(value: string): string {
-    const status = value as TaskStatus;
-    switch (status) {
-      case TaskStatus.TO_DO: return 'status-todo';
-      case TaskStatus.IN_PROGRESS: return 'status-in-progress';
-      case TaskStatus.DONE: return 'status-done';
-      default: return '';
-    }
+  getStatusClass(value: TaskStatus): string {
+    return this.statusInfo[value]?.class || '';
   }
 
   delete(id: number) {
-    if (confirm('¿Eliminar esta tarea?')) {
+    if (confirm(TASK_MESSAGES.confirmDelete)) {
       this.taskService.delete(id).subscribe(() => this.loadTasks());
     }
+  }
+
+  // --- Funciones de ayuda para el tipado en la plantilla ---
+  asTaskStatus(key: string): TaskStatus {
+    return key as TaskStatus;
+  }
+
+  asTaskPriority(key: string): TaskPriority {
+    return key as TaskPriority;
   }
 }

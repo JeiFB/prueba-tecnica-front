@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 import { AuthService } from '../../../../core/services/auth.service';
+import { AUTH_ROUTES, AUTH_TEXTS } from '../../../../shared/constants/auth.constants';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  authTexts = AUTH_TEXTS;
 
   constructor(
     private fb: FormBuilder,
@@ -46,9 +48,9 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) return;
 
     this.auth.login(this.loginForm.value).subscribe({
-      next: () => this.router.navigate(['/tasks']),
+      next: () => this.router.navigate([AUTH_ROUTES.tasks]),
       error: err => {
-        console.error('Login fallido', err);
+        console.error(this.authTexts.login.errors.loginFailed, err);
       }
     });
   }
