@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../../../../core/services/task.service';
-import { Task } from '../../../../shared/models/tasks';
+import { Task, TaskStatus, TaskPriority } from '../../../../shared/models/tasks';
 import { UserService } from '../../../../core/services/user.service';
 import { User } from '../../../../shared/models/user';
-import { TASK_STATUSES, TASK_PRIORITIES } from '../../../../shared/constants/task.constants';
+import { TASK_STATUS_MAP, TASK_PRIORITY_MAP, TASK_TEXTS } from '../../../../shared/constants/task.constants';
 
 @Component({
   selector: 'app-task-form',
@@ -18,8 +18,12 @@ export class TaskFormComponent implements OnInit {
   taskId!: number;
   users: User[] = [];
 
-  statuses = TASK_STATUSES;
-  priorities = TASK_PRIORITIES;
+  // Usamos las nuevas constantes
+  statuses = Object.keys(TaskStatus);
+  priorities = Object.keys(TaskPriority);
+  statusMap = TASK_STATUS_MAP;
+  priorityMap = TASK_PRIORITY_MAP;
+  taskTexts = TASK_TEXTS;
 
   constructor(
     private fb: FormBuilder,
@@ -81,6 +85,15 @@ export class TaskFormComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['/tasks']);
+  }
+
+  // --- Funciones de ayuda para el tipado en la plantilla ---
+  asTaskStatus(key: string): TaskStatus {
+    return key as TaskStatus;
+  }
+
+  asTaskPriority(key: string): TaskPriority {
+    return key as TaskPriority;
   }
 }
 

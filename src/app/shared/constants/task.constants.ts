@@ -47,4 +47,21 @@ export const TASK_TEXTS = {
   clearFiltersButton: 'Limpiar',
   fromDateLabel: 'Desde',
   toDateLabel: 'Hasta',
+  form: {
+    createTitle: 'Nueva Tarea',
+    editTitle: 'Editar Tarea',
+    titleLabel: 'Título',
+    titlePlaceholder: 'Ingresa el título de la tarea',
+    descriptionLabel: 'Descripción',
+    descriptionPlaceholder: 'Describe la tarea',
+    dueDateLabel: 'Fecha de vencimiento',
+    dueDatePlaceholder: 'DD/MM/YYYY',
+    statusLabel: 'Estado',
+    priorityLabel: 'Prioridad',
+    assigneeLabel: 'Asignar a',
+    requiredError: 'Requerido',
+    createButton: 'Crear',
+    updateButton: 'Actualizar',
+    cancelButton: 'Cancelar',
+  }
 }; 
