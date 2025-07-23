@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   register(data: any) {
-    return this.http.post(`${this.authRegisterUrl}/`, data);
+    return this.http.post(`${this.authRegisterUrl}/register`, data);
   }
 
   logout(): Observable<any> {
